@@ -1,3 +1,5 @@
+// based on my model sketch from `model-diagram-sketch.png`
+
 export default class Datasource {
     private name: string;
 

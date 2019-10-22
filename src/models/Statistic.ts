@@ -1,3 +1,4 @@
+// based on my model sketch from `model-diagram-sketch.png`
 export default class Statistic {
     private clicks: number;
     private impressions: number;

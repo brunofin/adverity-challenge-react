@@ -3,6 +3,7 @@ import moment from "moment";
 import Campaign from "./Campaign";
 import Statistic from "./Statistic";
 
+// based on my model sketch from `model-diagram-sketch.png`
 export default class DatasourceCampaignStatistic {
     private date: moment.Moment;
     private datasource: Datasource
