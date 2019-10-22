@@ -11,21 +11,24 @@ const initialState: IFilterState = {
     selectedCampaigns: [],
 };
 
-export default function DataReducer(state: IFilterState = initialState, action: FilterAction | DataAction): IFilterState {
+export default function FiltersReducer(state: IFilterState = initialState, action: FilterAction | DataAction): IFilterState {
     switch (action.type) {
         case DataActions.RECEIVE_DATA: {
             const dataAction: DataAction = (action as DataAction);
             const computedState = dataAction.data.reduce((acc, current) => {
-                if (!acc.dataSources.includes(current.datasource)) {
+                if (current.datasource && !acc.dataSources.includes(current.datasource)) {
                     acc.dataSources.push(current.datasource);
                 }
 
-                if (!acc.campaigns.includes(current.campaign)) {
+                if (current.campaign && !acc.campaigns.includes(current.campaign)) {
                     acc.campaigns.push(current.campaign);
                 }
 
                 return acc;
-            }, initialState);
+            }, {
+                dataSources: [...state.dataSources],
+                campaigns: [...state.campaigns],
+            });
 
             return Object.assign({}, state, computedState);
         }
@@ -34,30 +37,38 @@ export default function DataReducer(state: IFilterState = initialState, action: 
             const filterAction: FilterAction = (action as FilterAction);
 
             if (filterAction.campaign && !state.selectedCampaigns.includes(filterAction.campaign)) {
-                state.selectedCampaigns.push(filterAction.campaign)
+                const selectedCampaigns = [...state.selectedCampaigns];
+                selectedCampaigns.push(filterAction.campaign)
+                return Object.assign({}, state, { selectedCampaigns });
+            } else {
+                return state;
             }
 
-            return state;
         }
 
         case FiltersActions.SELECT_DATA_SOURCE: {
             const filterAction: FilterAction = (action as FilterAction);
 
             if (filterAction.dataSource && !state.selectedSources.includes(filterAction.dataSource)) {
-                state.selectedSources.push(filterAction.dataSource)
+                const selectedSources = [...state.selectedSources];
+                selectedSources.push(filterAction.dataSource);
+                return Object.assign({}, state, { selectedSources });
+            } else {
+                return state;
             }
 
-            return state;
         }
 
         case FiltersActions.REMOVE_CAMPAIGN: {
             const filterAction: FilterAction = (action as FilterAction);
 
             if (filterAction.campaign) {
-                const i = state.selectedCampaigns.indexOf(filterAction.campaign);
+                const selectedCampaigns = [...state.selectedCampaigns];
+                const i = selectedCampaigns.indexOf(filterAction.campaign);
 
                 if (i >= 0) {
-                    state.selectedCampaigns.splice(i, 1);
+                    selectedCampaigns.splice(i, 1);
+                    return Object.assign({}, state, { selectedCampaigns });
                 }
             }
 
@@ -68,14 +79,36 @@ export default function DataReducer(state: IFilterState = initialState, action: 
             const filterAction: FilterAction = (action as FilterAction);
 
             if (filterAction.dataSource) {
-                const i = state.selectedSources.indexOf(filterAction.dataSource);
+                const selectedSources = [...state.selectedSources];
+                const i = selectedSources.indexOf(filterAction.dataSource);
 
                 if (i >= 0) {
-                    state.selectedSources.splice(i, 1);
+                    selectedSources.splice(i, 1);
+                    return Object.assign({}, state, { selectedSources });
                 }
             }
 
             return state;
+        }
+
+        case FiltersActions.SET_SELECTED_CAMPAIGNS: {
+            const filterAction: FilterAction = (action as FilterAction);
+
+            if (filterAction.campaigns) {
+                return Object.assign({}, state, { selectedCampaigns: [...filterAction.campaigns] });
+            } else {
+                return state;
+            }
+        }
+
+        case FiltersActions.SET_SELECTED_DATA_SOURCES: {
+            const filterAction: FilterAction = (action as FilterAction);
+
+            if (filterAction.dataSources) {
+                return Object.assign({}, state, { selectedSources: [...filterAction.dataSources] });
+            } else {
+                return state;
+            }
         }
 
         default:

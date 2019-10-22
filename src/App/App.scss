@@ -1,0 +1,29 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-content: stretch;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+    flex-direction: column;
+    align-content: stretch;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+
+  .FilterComponent {
+    flex: 0.3;
+    & + * {
+      flex: 0.7;
+    }
+  }
+
+}

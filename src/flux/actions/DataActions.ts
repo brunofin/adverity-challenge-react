@@ -3,8 +3,8 @@ import DataAPIService from "../../services/DataAPIService";
 import IData from "../../interfaces/model/IData";
 
 enum DataActions {
-    REQUEST_DATA,
-    RECEIVE_DATA,
+    REQUEST_DATA = 'REQUEST_DATA',
+    RECEIVE_DATA = 'RECEIVE_DATA',
 }
 
 export default DataActions;

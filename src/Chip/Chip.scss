@@ -1,0 +1,22 @@
+.Chip {
+    background-color: antiquewhite;
+    border: {
+        color: aquamarine;
+        width: 2px;
+    }
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 50px;
+
+    div {
+        padding: 2px;
+    }
+
+    button {
+        background: none;
+        margin-left: 10px;
+        border-radius: 50%;
+    }
+}
