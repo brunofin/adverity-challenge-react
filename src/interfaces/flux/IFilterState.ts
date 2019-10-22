@@ -1,6 +1,7 @@
+import Datasource from "../../models/Datasource";
+import Campaign from "../../models/Campaign";
+
 export default interface IFilterState {
-    dataSources: Array<string>;
-    campaigns: Array<string>;
-    selectedSources: Array<string>;
-    selectedCampaigns: Array<string>;
+    selectedSources: Array<Datasource>;
+    selectedCampaigns: Array<Campaign>;
 };

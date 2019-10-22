@@ -1,10 +1,10 @@
 import { Dispatch, Action, AnyAction } from "redux";
 import DataAPIService from "../../services/DataAPIService";
-import IData from "../../interfaces/model/IData";
+import { IMappedData } from "../../interfaces/flux/IDataState";
 
 enum DataActions {
-    REQUEST_DATA = 'REQUEST_DATA',
-    RECEIVE_DATA = 'RECEIVE_DATA',
+    REQUEST_DATA = 'DataActions.REQUEST_DATA',
+    RECEIVE_DATA = 'DataActions.RECEIVE_DATA',
 }
 
 export default DataActions;
@@ -16,7 +16,7 @@ export class DataActionCreators {
         };
     }
 
-    public static receiveData(data: IData[]): AnyAction {
+    public static receiveData(data: IMappedData): AnyAction {
         return {
             type: DataActions.RECEIVE_DATA,
             data

@@ -5,4 +5,5 @@ export default interface IData {
     datasource: string;
     campaign: string;
     impressions: number;
+    clicks: number;
 };

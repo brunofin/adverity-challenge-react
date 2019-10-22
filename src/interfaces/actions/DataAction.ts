@@ -1,6 +1,6 @@
 import { Action } from "redux";
-import IData from "../model/IData";
+import { IMappedData } from "../flux/IDataState";
 
 export default interface DataAction extends Action {
-    data: IData[];
+    data: IMappedData;
 };

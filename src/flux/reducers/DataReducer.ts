@@ -4,7 +4,12 @@ import IDataState from "../../interfaces/flux/IDataState";
 
 const initialState: IDataState = {
     loading: false,
-    data: []
+    data: {
+        campaigns: [],
+        datasources: [],
+        statistics: [],
+        relationships: []
+    }
 };
 
 export default function DataReducer(state: IDataState = initialState, action: DataAction): IDataState {
@@ -13,7 +18,10 @@ export default function DataReducer(state: IDataState = initialState, action: Da
             return Object.assign({}, state, { loading: true });
 
         case DataActions.RECEIVE_DATA:
-            return Object.assign({}, state, { loading: false, data: [...action.data] });
+            return {
+                loading: false,
+                data: action.data
+            }
 
         default:
             return state;

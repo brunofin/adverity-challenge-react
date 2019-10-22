@@ -1,37 +1,15 @@
-import DataActions from "../actions/DataActions";
 import IFilterState from "../../interfaces/flux/IFilterState";
 import DataAction from "../../interfaces/actions/DataAction";
 import FiltersActions from "../actions/FiltersActions";
 import FilterAction from "../../interfaces/actions/FilterAction";
 
 const initialState: IFilterState = {
-    dataSources: [],
-    campaigns: [],
     selectedSources: [],
     selectedCampaigns: [],
 };
 
 export default function FiltersReducer(state: IFilterState = initialState, action: FilterAction | DataAction): IFilterState {
     switch (action.type) {
-        case DataActions.RECEIVE_DATA: {
-            const dataAction: DataAction = (action as DataAction);
-            const computedState = dataAction.data.reduce((acc, current) => {
-                if (current.datasource && !acc.dataSources.includes(current.datasource)) {
-                    acc.dataSources.push(current.datasource);
-                }
-
-                if (current.campaign && !acc.campaigns.includes(current.campaign)) {
-                    acc.campaigns.push(current.campaign);
-                }
-
-                return acc;
-            }, {
-                dataSources: [...state.dataSources],
-                campaigns: [...state.campaigns],
-            });
-
-            return Object.assign({}, state, computedState);
-        }
 
         case FiltersActions.SELECT_CAMPAIGN: {
             const filterAction: FilterAction = (action as FilterAction);
