@@ -53,7 +53,13 @@ export default function DataReducer(state: IFilterState = initialState, action: 
         case FiltersActions.REMOVE_CAMPAIGN: {
             const filterAction: FilterAction = (action as FilterAction);
 
-            // TODO:
+            if (filterAction.campaign) {
+                const i = state.selectedCampaigns.indexOf(filterAction.campaign);
+
+                if (i >= 0) {
+                    state.selectedCampaigns.splice(i, 1);
+                }
+            }
 
             return state;
         }
@@ -61,7 +67,13 @@ export default function DataReducer(state: IFilterState = initialState, action: 
         case FiltersActions.REMOVE_DATA_SOURCE: {
             const filterAction: FilterAction = (action as FilterAction);
 
-            // TODO:
+            if (filterAction.dataSource) {
+                const i = state.selectedSources.indexOf(filterAction.dataSource);
+
+                if (i >= 0) {
+                    state.selectedSources.splice(i, 1);
+                }
+            }
 
             return state;
         }
